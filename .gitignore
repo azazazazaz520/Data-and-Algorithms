@@ -1,0 +1,84 @@
+# =========================
+# CLion / JetBrains
+# =========================
+.idea
+*.iml
+*.iws
+.gitee
+*.exe
+
+# =========================
+# CMake
+# =========================
+CMakeFiles/
+build/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+Testing/
+cmake-build-*/
+Debug/
+Release/
+
+CMakeLists.txt.user
+
+# =========================
+# Compiled Object files
+# =========================
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# =========================
+# Libraries
+# =========================
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exp
+*.pdb
+*.idb
+
+# =========================
+# Executables
+# =========================
+*.exe
+*.out
+*.app
+
+# =========================
+# Temporary / Backup Files
+# =========================
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# =========================
+# System Files
+# =========================
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.nfs*
+
+# =========================
+# Logs
+# =========================
+*.log
+
