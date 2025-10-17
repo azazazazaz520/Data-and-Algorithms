@@ -5,7 +5,7 @@
 
 // 使用BFS检查从节点0是否可以到达所有其他节点
 bool checkConnectivity(const std::vector<std::vector<int>>& graph) {
-    int N = graph.size();
+    int N = graph.size();   // 节点数量
     if (N == 0) return true;  // 处理空图的情况
     std::vector<bool> visited(N, false);
     std::queue<int> q;
@@ -15,12 +15,12 @@ bool checkConnectivity(const std::vector<std::vector<int>>& graph) {
     visited[0] = true;
     
     while (!q.empty()) {
-        int current = q.front();
+        int current = q.front();  
         q.pop();
         
         // 检查所有可达的邻居节点
         for (int neighbor : graph[current]) {
-            if (!visited[neighbor]) {
+            if (!visited[neighbor]) {  // 如果邻居节点未被访问过
                 visited[neighbor] = true;
                 q.push(neighbor);
             }
