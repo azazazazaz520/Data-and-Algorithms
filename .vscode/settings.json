@@ -110,6 +110,8 @@
     "typeinfo": "cpp",
     "variant": "cpp",
     "cstring": "cpp",
-    "bitset": "cpp"
+    "bitset": "cpp",
+    "iomanip": "cpp",
+    "sstream": "cpp"
   }
 }
