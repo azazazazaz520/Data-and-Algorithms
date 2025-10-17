@@ -1,50 +1,37 @@
 #include <iostream>
 #include <vector>
-#include <queue>
-#include <cstring>
 
-// 使用BFS检查从节点0是否可以到达所有其他节点
-bool checkConnectivity(const std::vector<std::vector<int>>& graph) {
-    int N = graph.size();   // 节点数量
-    if (N == 0) return true;  // 处理空图的情况
-    std::vector<bool> visited(N, false);
-    std::queue<int> q;
+
+bool checkConnectivity(const std::vector<std::vector<int>>& graph, int N,
+                       int blockedFrom = -1, int blockedTo = -1) {
+    if (N == 0) return true;
+
     
-    // 从0号节点开始BFS
-    q.push(0);
-    visited[0] = true;
+    std::vector<char> visited(N, 0);
+
     
-    while (!q.empty()) {
-        int current = q.front();  
-        q.pop();
-        
-        // 检查所有可达的邻居节点
-        for (int neighbor : graph[current]) {
-            if (!visited[neighbor]) {  // 如果邻居节点未被访问过
-                visited[neighbor] = true;
-                q.push(neighbor);
+    std::vector<int> q;
+    q.reserve(N);
+    int qhead = 0;
+
+    // 从 0 开始
+    visited[0] = 1;
+    q.push_back(0);
+    int cnt = 1;
+
+    while (qhead < (int)q.size()) {
+        int cur = q[qhead++];
+        for (int nei : graph[cur]) {
+            if (cur == blockedFrom && nei == blockedTo) continue; // 跳过被损坏的边
+            if (!visited[nei]) {
+                visited[nei] = 1;
+                q.push_back(nei);
+                if (++cnt == N) return true; // 提前结束
             }
         }
     }
-    
-    // 检查是否所有节点都被访问到
-    for (bool v : visited) {
-        if (!v) return false;
-    }
-    return true;
-}
 
-// 测试删除某条边后的连通性
-bool testAfterDamage(std::vector<std::vector<int>> graph, int from, int to) {
-    // 删除from到to的边
-    for (auto it = graph[from].begin(); it != graph[from].end(); ++it) {
-        if (*it == to) {
-            graph[from].erase(it);
-            break;
-        }
-    }
-    
-    return checkConnectivity(graph);
+    return cnt == N;
 }
 
 int main() {
@@ -68,13 +55,13 @@ int main() {
     }
     
     // 首先输出原始图的连通性
-    std::cout << (checkConnectivity(graph) ? 1 : 0) << '\n';
-    
+    std::cout << (checkConnectivity(graph, N) ? 1 : 0) << '\n';
+
     // 处理每条可能被破坏的边
     for (int a = 0; a < M; a++) {
         int i, j;
-        std::cin >> i >> j;   // 表示边i-j被破坏
-        std::cout << (testAfterDamage(graph, i, j) ? 1 : 0) << '\n';
+        std::cin >> i >> j;   // 表示边i->j被破坏
+        std::cout << (checkConnectivity(graph, N, i, j) ? 1 : 0) << '\n';
     }
     
     return 0;
